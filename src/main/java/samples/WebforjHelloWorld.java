@@ -38,6 +38,7 @@ public class WebforjHelloWorld extends App {
   Button btn = new Button("Say Hello");
   private SuggestionEdit se;
   private Label lbl;
+  private SuggestionEdit se2;
 
   @Override
   public void run() throws WebforjException {
@@ -46,12 +47,17 @@ public class WebforjHelloWorld extends App {
 
     App.getPage().addJavaScript("http://localhost:8888/files/dwc-addons/dwc-addons.esm.js",true,"type=module");
 
-    lbl = new Label("");
-    mainFrame.add(lbl);
 
+    lbl = new Label("dynamic suggestions:");
+    mainFrame.add(lbl);
     se = new SuggestionEdit();
     mainFrame.add(se);
     se.addModifiedListener(this::onModified);
+
+    mainFrame.add(new Label("fixed list of suggestions:"));
+    se2 = new SuggestionEdit();
+    mainFrame.add(se2);
+    se2.setSuggestions(fakeNames.findMatching("mil"));
  }
 
   private void onModified(ModifiedEvent modifiedEvent) {
